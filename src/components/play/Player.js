@@ -18,7 +18,7 @@ class Player extends React.Component {
         //把当前播放歌曲currentSong， 当前播放歌曲的位置currentIndex交给自身
 
         this.currentSong = new Song(0, "", "", "", 0, "", "");
-    
+
         this.currentIndex = 0;
 
         //播放模式： list-列表 single-单曲 shuffle-随机
@@ -47,14 +47,14 @@ class Player extends React.Component {
 
         this.audioDOM.addEventListener('canplay', () => {
             if (this.props.playSongs.length > 0) {
-                for (var i = 0, len = this.props.playSongs.length; i< len; i++) {
+                for (var i = 0, len = this.props.playSongs.length; i < len; i++) {
                     if (this.props.playSongs[i].id === this.props.currentSong.id) {
-                         this.currentIndex = i;
-                         break;
+                        this.currentIndex = i;
+                        break;
                     }
                 }
             }
-            let currentIndex = this.currentIndex || 0; 
+            let currentIndex = this.currentIndex || 0;
             this.props.changeCurrentIndex(currentIndex); //传递当前歌曲的index到MusicPlayer.js再到PlayerList.js
             this.audioDOM.play()
             this.startImgRotate();
@@ -140,6 +140,11 @@ class Player extends React.Component {
     //播放或暂停
     playOrPause = () => {
         if (this.audioDOM.paused) {
+            //第一次播放
+            if (this.first === undefined) {
+                this.audioDOM.src = this.currentSong.url;
+                this.first = true;
+            }
             this.audioDOM.play();
             this.startImgRotate();
 
@@ -249,9 +254,11 @@ class Player extends React.Component {
             //当前歌曲发发生变化
             if (this.currentSong.id !== this.props.currentSong.id) {
                 this.currentSong = this.props.currentSong;
-                this.audioDOM.src = this.currentSong.url;
-                //加载资源，ios需要调用此方法
-                this.audioDOM.load();
+                if (this.audioDOM) {
+                    this.audioDOM.src = this.currentSong.url;
+                    //加载资源，ios需要调用此方法
+                    this.audioDOM.load();
+                }
             }
         }
         let song = this.currentSong;
@@ -330,11 +337,11 @@ class Player extends React.Component {
                         <audio ref="audio" id="a"></audio>
                     </div>
                 </CSSTransition>
-                <MiniPlayer song={song} progress={this.state.playProgress} 
-                showStatus={this.props.showStatus} 
-                showMusicPlayer={this.props.showMusicPlayer} 
-                playOrPause={this.playOrPause} 
-                next={this.next}/>
+                <MiniPlayer song={song} progress={this.state.playProgress}
+                    showStatus={this.props.showStatus}
+                    showMusicPlayer={this.props.showMusicPlayer}
+                    playOrPause={this.playOrPause}
+                    next={this.next} />
             </div>
         );
     }
