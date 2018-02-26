@@ -11,7 +11,7 @@ export default {
     },
     getSongs() {
         let songs = localStorage.getItem('songs')
-        return songs ? JSON.parse(songs) : {};
+        return songs ? JSON.parse(songs) : [];
     }
-}
+} 
 

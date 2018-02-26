@@ -48,8 +48,9 @@ function songs(songs = initialState.songs, action) {
             localStorage.setSongs(action.songs);   ////当前歌曲列表存储在localStorage
             return action.songs;
         case ActionTypes.REMOVE_SONG_FROM_LIST:
-            localStorage.setSongs(action.songs);
-            return songs.filter(song => song.id !== action.id);
+            let newSongs = songs.filter(song => song.id !== action.id);
+            localStorage.setSongs(newSongs);
+            return newSongs;
         default:
             return songs;
     }

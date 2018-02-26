@@ -5,7 +5,7 @@ import PlayerList from "../components/play/PlayerList"
 //映射Redux全局的state到组件的props上
 const mapStateToProps = (state) => ({
     currentSong: state.song,
-    playSongs: state.songs
+    playSongs: state.songs 
 });
 
 //映射dispatch到props上
