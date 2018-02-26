@@ -57,7 +57,7 @@ function songs(songs = initialState.songs, action) {
 //合并Reducer 
 const reducer = combineReducers({
     showStatus,
-    song, 
+    song,  
     songs
 });
 
