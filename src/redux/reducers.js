@@ -59,7 +59,7 @@ const reducer = combineReducers({
     showStatus,
     song,  
     songs
-});
+}); 
 
 export default reducer
 
