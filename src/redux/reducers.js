@@ -58,7 +58,7 @@ function songs(songs = initialState.songs, action) {
 const reducer = combineReducers({
     showStatus,
     song,  
-    songs
+    songs 
 }); 
 
 export default reducer
