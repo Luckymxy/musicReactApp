@@ -135,7 +135,7 @@ class Recommend extends React.Component {
         return (
             <div className="music-recommend">
                 <Scroll refresh={this.state.refreshScroll}  onScroll={e=>{forceCheck(); /*检查懒加载组件是否出现在视图中，如果出现就加载组件*/ }}>
-                    <div>{console.log(1)}
+                    <div>
                         <div className="slider-container">
                             <div className="swiper-wrapper">
                                 {

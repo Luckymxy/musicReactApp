@@ -17,6 +17,7 @@ class PlayerList extends React.Component {
             showList: false,
         }
     }
+
     componentDidUpdate() {
         //重置歌曲位置
         if (this.changeIndex.shouldChange === true) {

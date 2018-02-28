@@ -45,6 +45,16 @@ class Player extends React.Component {
             this.isFirstPlay = false;
         };
 
+        // 歌曲列表缓存的时候
+        if (this.props.playSongs.length > 0) {
+            let songsList = [...this.props.playSongs];
+            songsList.forEach((ele,i) => {
+                if (ele.id === this.props.currentSong.id) {
+                    this.currentIndex = i;
+                    this.props.changeCurrentIndex(i);
+                }
+            })
+        }
         this.audioDOM.addEventListener('canplay', () => {
             if (this.props.playSongs.length > 0) {
                 for (var i = 0, len = this.props.playSongs.length; i < len; i++) {
@@ -82,9 +92,9 @@ class Player extends React.Component {
                         currentIndex++;
                     }
                 } else if (this.state.currentPlayMode === 1) {
-                    return;
+                    this.audioDOM.play();
                 } else {
-                    let index = parseInt(Math.random() * this.props.playsongs.length, 10);
+                    let index = parseInt(Math.random() * this.props.playSongs.length, 10);
                     currentIndex = index;
                 }
                 this.props.changeCurrentSong(this.props.playSongs[currentIndex]);
@@ -172,9 +182,9 @@ class Player extends React.Component {
                     currentIndex--;
                 }
             } else if (this.state.currentPlayMode === 1) {
-                return;
+                this.audioDOM.load();
             } else {
-                let index = parseInt(Math.random() * this.props.playsongs.length, 10);
+                let index = parseInt(Math.random() * this.props.playSongs.length, 10);
                 currentIndex = index;
             }
             this.props.changeCurrentSong(this.props.playSongs[currentIndex]);
@@ -193,9 +203,9 @@ class Player extends React.Component {
                     currentIndex++;
                 }
             } else if (this.state.currentPlayMode === 1) {
-                return;
+                  this.audioDOM.load();
             } else {
-                let index = parseInt(Math.random() * this.props.playsongs.length, 10);
+                let index = parseInt(Math.random() * this.props.playSongs.length, 10);
                 currentIndex = index;
             }
             this.props.changeCurrentSong(this.props.playSongs[currentIndex]);
@@ -334,7 +344,7 @@ class Player extends React.Component {
 
                         </div>
                         <div className="player-bg" ref="playerBg"></div>
-                        <audio ref="audio" id="a"></audio>
+                        <audio ref="audio"></audio>
                     </div>
                 </CSSTransition>
                 <MiniPlayer song={song} progress={this.state.playProgress}

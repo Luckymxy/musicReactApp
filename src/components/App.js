@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect, NavLink } from "react-router-dom"
 import Recommend from "./recommend/Recommend"
 import Ranking from "./ranking/Ranking"
+import Singer from "./singer/Singer"
 import Search from "./search/Search"
 import logo from "../assets/imgs/logo.png"
 import '../assets/stylus/reset.styl'
@@ -32,6 +33,11 @@ class App extends Component {
               </NavLink>
             </div>
             <div className="tab-item">
+              <NavLink to="/singer" className="nav-link">
+                <span>歌手</span>
+              </NavLink>
+            </div>
+            <div className="tab-item">
               <NavLink to="/search" className="nav-link">
                 <span>搜索</span>
               </NavLink>
@@ -45,6 +51,7 @@ class App extends Component {
             <Switch>
               <Route path="/recommend" component={Recommend} />
               <Route path="/ranking" component={Ranking} />
+              <Route path="/singer" component={Singer} />
               <Route path="/search" component={Search} />
               <Redirect from="/" to="/recommend" />
               {/*<Route component={Ranking} />*/}

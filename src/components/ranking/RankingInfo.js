@@ -38,7 +38,7 @@ class RankingInfo extends React.Component {
         getRankingInfo(this.props.match.params.id).then(res => {
             console.log("获取排行榜详情：");
             if (res) {
-                console.log(res)
+               // console.log(res)
                 if (res.code === CODE_SUCCESS) {
                     let ranking = createRankingByDetail(res.topinfo)
                     ranking.info = res.topinfo.info;
