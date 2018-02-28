@@ -38,7 +38,7 @@ class Album extends React.Component {
         getAlbumInfo(this.props.match.params.id).then((res) => {
             console.log("获取专辑详情：");
             if (res) {
-                console.log(res)
+                //console.log(res)
                 if (res.code === CODE_SUCCESS) {
                     let album = AlbumModel.createAlbumByDetail(res.data);
                     album.desc = res.data.desc;
