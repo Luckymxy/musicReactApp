@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect, NavLink } from "react-router-dom"
 import Recommend from "./recommend/Recommend"
 import Ranking from "./ranking/Ranking"
-import Singer from "./singer/Singer"
+import SingerList from "./singer/SingerList"
 import Search from "./search/Search"
 import logo from "../assets/imgs/logo.png"
 import '../assets/stylus/reset.styl'
@@ -51,7 +51,7 @@ class App extends Component {
             <Switch>
               <Route path="/recommend" component={Recommend} />
               <Route path="/ranking" component={Ranking} />
-              <Route path="/singer" component={Singer} />
+              <Route path="/singer" component={SingerList} />
               <Route path="/search" component={Search} />
               <Redirect from="/" to="/recommend" />
               {/*<Route component={Ranking} />*/}
