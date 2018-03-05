@@ -5,6 +5,10 @@ import Loading from "@/common/loading/Loading"
 import {getSingerList} from "@/api/singer"
 import {CODE_SUCCESS} from "@/api/config"
 import * as SingerModel from "@/model/singer"
+import LazyLoad, { forceCheck } from "react-lazyload"
+import Singer from "@/containers/Singer"
+import {Route} from "react-router-dom"
+
 
 import './singerlist.styl'
 
@@ -96,30 +100,98 @@ class SingerList extends React.Component {
 	getSingers() {
 		getSingerList(1,`${this.state.typeKey + '_' + this.state.indexKey}`).then(res => {
 			console.log('获取歌手列表');
-			console.log(res)
 			if (res) {
-				console.log(res)
+				//console.log(res)
 				if (res.code === CODE_SUCCESS) {
 					let singers = [];
-
+					res.data.list.forEach(data => {
+						let singer = new SingerModel.Singer(data.Fsinger_id,data.Fsinger_mid,data.Fsinger_name,
+						`https://y.gtimg.cn/music/photo_new/T001R150x150M000${data.Fsinger_mid}.jpg?max_age=2592000`)
+						singers.push(singer);
+					});
+					this.setState({
+						loading: false,
+						singers: singers
+					}, () => {
+						this.setState({
+							refreshScroll: true
+						})
+					})
 				}
 			}
 		})
 	}
 
+	handleTypeClick = (key) => {
+		this.setState({
+			loading: true,
+			typeKey: key,
+			indexKey: "all",
+			singers: []
+		}, () => {
+			this.getSingers();
+		});
+	}
+
+	handleIndexClick = (key) => {
+		this.setState({
+			loading: true,
+			indexKey: key,
+			singer: []
+		}, ()=>{
+			this.getSingers();
+		});
+	}
+
+	toDetail = (url) => {
+		this.props.history.push({
+			pathname: url
+		});
+	}
+	// toDetail = (url) => {
+	// 	return () => {
+	// 		this.props.history.push({
+	// 			pathname: url
+	// 		});
+	// 	}
+	// }
     render() {
+		let {match} = this.props;
+
 		let tags = this.types.map(item => (
-			<a key={item.key} className={this.state.typeKey === item.key ? "choose" : ""}>
+			<a key={item.key} className={this.state.typeKey === item.key ? "choose" : ""} onClick={() => {this.handleTypeClick(item.key)}}>
 				{item.name}
 			</a>
 		));
 
 		let indexs = this.indexs.map(item => (
-			<a key={item.key} className={this.state.indexKey === item.key ? "choose" : ""}>
+			<a key={item.key} className={this.state.indexKey === item.key ? "choose" : ""} onClick={() => {this.handleIndexClick(item.key)}}>
 				{item.name}
 			</a>
 		));
 	
+		let singers = this.state.singers.map(singer => (
+			<div className="singer-wraper" key={singer.id} 
+			onClick={
+				//this.toDetail(`${match.url}/${singer.mId}`)  //两种写法
+				()=>{this.toDetail(`${match.url}/${singer.mId}`);}
+			}
+			>
+				<div className="singer-img">
+					<LazyLoad>
+						<img src={singer.img} alt={singer.name} style={{width: "100%", height: "100%"}}
+						onError={(e) => {
+							e.currentTarget.src = require("@/assets/imgs/music.png");
+						}}
+						/>
+					</LazyLoad>
+				</div>
+				<div className="singer-name">
+					{singer.name}
+				</div>
+			</div>
+		))
+
         return (
             <div className="music-singers">
 				<div className="nav">
@@ -134,6 +206,15 @@ class SingerList extends React.Component {
 						</div>
 					</Scroll>
 				</div>
+				<div className="singer-list">
+					<Scroll refresh={this.state.refreshScroll} ref="singerScroll" onScroll={()=>{forceCheck();}}>
+						<div className="singer-container">
+							{singers}
+						</div>
+					</Scroll>
+				</div>
+				<Loading title="正在加载..." show={this.state.loading} />
+				<Route path={`${match.url + '/:id'}`} component={Singer} />
 			</div>
         )
     }
