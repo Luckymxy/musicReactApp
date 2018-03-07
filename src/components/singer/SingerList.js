@@ -18,7 +18,7 @@ class SingerList extends React.Component {
         //console.log(this.props);
 		this.types = [
 			{key:"all_all", name:"全部"},
-			{key:"cn_man", name:"华语男"},
+			{key:"cn_man", name:"华语男"}, 
 			{key:"cn_woman", name:"华语女"},
 			{key:"cn_team", name:"华语组合"},
 			{key:"k_man", name:"韩国男"},
@@ -157,7 +157,7 @@ class SingerList extends React.Component {
 	// }
     render() {
 		let {match} = this.props;
-
+	
 		let tags = this.types.map(item => (
 			<a key={item.key} className={this.state.typeKey === item.key ? "choose" : ""} onClick={() => {this.handleTypeClick(item.key)}}>
 				{item.name}
