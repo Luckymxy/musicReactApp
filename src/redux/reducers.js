@@ -17,7 +17,8 @@ import localStorage from "@/util/storage";         //持久化数据到本地，
 const initialState = {
         showStatus: false,  //显示状态
         song: localStorage.getCurrentSong(),  //当前歌曲    ，       初始化读取localStorage数据
-        songs: localStorage.getSongs()  //歌曲列表
+        songs: localStorage.getSongs(),  //歌曲列表
+        loadStatus: false
     };
 
 //拆分Reducer
@@ -28,6 +29,16 @@ function showStatus(showStatus = initialState.showStatus, action) {
             return action.showStatus;
         default:
             return showStatus;
+    }
+}
+
+//audio是否重新播放
+function loadStatus(loadStatus = initialState.loadStatus, action) {
+    switch (action.type) {
+        case ActionTypes.AUDIO_LOAD:
+            return action.loadStatus;
+        default:
+            return loadStatus;
     }
 }
 
@@ -59,7 +70,8 @@ function songs(songs = initialState.songs, action) {
 const reducer = combineReducers({
     showStatus,
     song,  
-    songs 
+    songs,
+    loadStatus 
 }); 
 
 export default reducer

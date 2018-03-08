@@ -120,6 +120,16 @@ class Player extends React.Component {
         })
     }
 
+    componentDidUpdate () {
+        //为什么这里写componentWillUpdate时this.props.loadStatus和redux的state的值对不上
+
+        if (this.props.loadStatus) {
+            this.audioDOM.src = this.currentSong.url;
+            this.audioDOM.load();
+            this.props.audioReload(false);
+        }
+    }
+
 	/**
 	 * 开始旋转图片
 	 */
@@ -261,8 +271,8 @@ class Player extends React.Component {
 
         //从redux中获取当前播放歌曲
         if (this.props.currentSong && this.props.currentSong.url) {
-            //当前歌曲发发生变化
-            if (this.currentSong.id !== this.props.currentSong.id) {
+            //当前歌曲发生变化
+            if (this.currentSong.id !== this.props.currentSong.id) {            
                 this.currentSong = this.props.currentSong;
                 if (this.audioDOM) {
                     this.audioDOM.src = this.currentSong.url;
@@ -271,6 +281,7 @@ class Player extends React.Component {
                 }
             }
         }
+      
         let song = this.currentSong;
 
         let playBg = song.img ? song.img : require("@/assets/imgs/play_bg.jpg");

@@ -103,6 +103,7 @@ class RankingInfo extends React.Component {
             this.props.setSongs(this.state.songs);
             this.props.changeCurrentSong(this.state.songs[0]);
             this.props.showMusicPlayer(true);
+            this.props.audioReload(true);
         }
     }
 
@@ -113,6 +114,7 @@ class RankingInfo extends React.Component {
             for (var value of songs) {
                 if (value.id === song.id) {
                     notExist = false;
+                    this.props.audioReload(true);
                     break;
                 }
             }

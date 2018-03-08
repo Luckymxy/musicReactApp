@@ -102,7 +102,8 @@ class Album extends React.Component {
             //所有的修改都是围绕着store（reducers）中state的数据来
             this.props.setSongs(this.state.songs);
             this.props.changeCurrentSong(this.state.songs[0]);
-            this.props.showMusicPlayer(true)
+            this.props.showMusicPlayer(true);
+            this.props.audioReload(true);
         }
     }
 
@@ -113,6 +114,7 @@ class Album extends React.Component {
             for (var value of songs) {
                 if (value.id === song.id) {
                     notExist = false;
+                    this.props.audioReload(true);
                     break;
                 }
             }

@@ -1,5 +1,5 @@
 import {connect} from "react-redux"
-import {showPlayer, changeSong, setSongs} from "../redux/actions"
+import {showPlayer, changeSong, setSongs, audioLoad} from "../redux/actions"
 import Singer from "@/components/singer/Singer"
 
 const mapDispatchToProps = (dispatch) => ({
@@ -11,8 +11,13 @@ const mapDispatchToProps = (dispatch) => ({
     },
     setSongs: (songs) => {
         dispatch(setSongs(songs));
+    },
+    audioReload: (status) => {
+        dispatch(audioLoad(status));
     }
 });
-
-export default connect(null, mapDispatchToProps)(Singer)
+const mapStateToProps = (state) => ({
+    songsList: state.songs
+})
+export default connect(mapStateToProps, mapDispatchToProps)(Singer)
 

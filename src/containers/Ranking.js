@@ -1,5 +1,5 @@
 import { connect } from "react-redux"
-import { showPlayer, changeSong, setSongs } from "../redux/actions"
+import { showPlayer, changeSong, setSongs, audioLoad } from "../redux/actions"
 import RankingInfo from "@/components/ranking/RankingInfo"
 
 
@@ -15,6 +15,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     setSongs: (songs) => {
         dispatch(setSongs(songs))
+    },
+    audioReload: (status) => {
+        dispatch(audioLoad(status));
     }
 }) 
 
