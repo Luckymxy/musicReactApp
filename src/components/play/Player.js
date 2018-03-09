@@ -120,15 +120,33 @@ class Player extends React.Component {
         })
     }
 
-    componentDidUpdate () {
-        //为什么这里写componentWillUpdate时this.props.loadStatus和redux的state的值对不上
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     console.log(nextProps)
+    //     console.log(this.props.loadStatus)
+    //     return true
+    // }
 
-        if (this.props.loadStatus) {
+    componentWillUpdate (nextProps) {
+        // console.log(this.props.loadStatus);
+        // console.log(nextProps);
+        //为什么this.props.loadStatus和redux的state中的loadStatus值对不上,因为：
+        // this.props是老的props， nextProps是新的props。
+        //老的this.props中loadStatus值为false，组件接收到的nextProps中loadStatus值为true、
+        if (nextProps.loadStatus) {
             this.audioDOM.src = this.currentSong.url;
             this.audioDOM.load();
             this.props.audioReload(false);
         }
     }
+    
+    // componentDidUpdate () {
+    //     console.log(this.props.loadStatus)
+    //     if (this.props.loadStatus) {
+    //         this.audioDOM.src = this.currentSong.url;
+    //         this.audioDOM.load();
+    //         this.props.audioReload(false);
+    //     }
+    // }
 
 	/**
 	 * 开始旋转图片
@@ -266,9 +284,8 @@ class Player extends React.Component {
     }
 
     render() {
-        //console.log(1)       this.props中的全局state改变会直接触发这个render方法，
+        //console.log(1)       this.props发生改变， 触发一系列钩子函数。
         // this.audioDOM.src 改变之后会触发audio的canplay方法。
-
         //从redux中获取当前播放歌曲
         if (this.props.currentSong && this.props.currentSong.url) {
             //当前歌曲发生变化
