@@ -25,13 +25,4 @@ export function createSingerByDetail(data) {
      )
 }
 
-//根据搜索返回结果歌手对象函数
 
-export function createSingerBySearch(data) {
-    return new Singer(
-        data.singerid,
-        data.singermid,
-        data.singername,
-        `http://y.gtimg.cn/music/photo_new/T001R68x68M000${data.singermid}.jpg?max_age=2592000`
-    );
-}

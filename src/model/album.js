@@ -53,7 +53,7 @@ export function createAlbumByDetail(data) {
  *  返回结果创建专辑对象函数
  */
 export function createAlbumBySearch(data) {
-    return new Abum(
+    return new Album(
         data.albumid,
         data.albummid,
         data.albumname,
