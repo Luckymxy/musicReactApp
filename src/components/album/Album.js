@@ -28,7 +28,7 @@ class Album extends React.Component {
      componentDidMount() {
         this.setState({
             show: true
-        });
+    });
 
 
         let albumBgDOM = ReactDOM.findDOMNode(this.refs.albumBg);

@@ -1,4 +1,4 @@
-function getTransitionEndName (dom) {
+export function getTransitionEndName (dom) {
     let cssTransition = ["transition", "webkitTransition"];
     let transitionEnd = {
         "transition": "transitionend",
@@ -18,4 +18,3 @@ function getTransitionEndName (dom) {
 
 
 
-export {getTransitionEndName}
