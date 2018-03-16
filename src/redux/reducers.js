@@ -16,8 +16,8 @@ import localStorage from "@/util/storage";         //持久化数据到本地，
 //需要存储的初始状态数据
 const initialState = {
         showStatus: false,  //显示状态
-        song: localStorage.getCurrentSong(),  //当前歌曲    ，       初始化读取localStorage数据
-        songs: localStorage.getSongs(),  //歌曲列表
+        song: localStorage.getCurrentSong() || "",  //当前歌曲    ，       初始化读取localStorage数据
+        songs: localStorage.getSongs() || "",  //歌曲列表
         loadStatus: false
     };
 

@@ -91,7 +91,6 @@ class Search extends React.Component {
     }
 
     handleInput = (e) => {
-        console.log(e)
         let w = e.currentTarget.value;
         this.setState({
             w,
@@ -112,7 +111,6 @@ class Search extends React.Component {
         return (e) => {
             switch (type) {
                 case "album":
-                console.log(1)
                     this.props.history.push({
                         pathname: `${this.props.match.url + '/album/' + data}`
                     })
@@ -152,10 +150,10 @@ class Search extends React.Component {
         }
     }
 
-    startMusicIcoAnimation = ({ clientX, clientY }) => {
+    startMusicIcoAnimation = ({clientX,clientY}) => {
         if (this.musicIcos.length > 0) {
-            for (var v of this.musicIcos) {
-                if (v.run === false) {
+            for(var v of this.musicIcos){
+              if (v.run === false) {
                     v.style.left = clientX + "px";
                     v.style.top = clientY + "px";
                     v.style.display = "inline-block";
@@ -166,20 +164,20 @@ class Search extends React.Component {
                         let icon = v.querySelector("div");
                         icon.style["webkitTransform"] = "translate3d(-30px,0,0)";
                         icon.style["transform"] = "translate3d(-30px,0,0)";
-                    }, 0) // 当在transition完成前移除transition时，比如移除css的transition-property 属性，事件将不会被触发.如在transition完成前设置 display 为"none"，事件同样不会被触发。这里就是v的css样式设置了display:“none”，这里用setTimeOut即可解决
-
-                    break;
+                    },20) // 当在transition完成前移除transition时，比如移除css的transition-property 属性，事件将不会被触发.如在transition完成前设置 display 为"none"，事件同样不会被触发。这里就是v的css样式设置了display:“none”，这里用setTimeOut即可解决
+                break;
                 }
             }
         }
     }
 
-    initMusicIco = () => {
+    
+     initMusicIco = () => {
         this.musicIcos = [];
         this.musicIcos.push(ReactDOM.findDOMNode(this.refs.musicIcon1));
         this.musicIcos.push(ReactDOM.findDOMNode(this.refs.musicIcon2));
         this.musicIcos.push(ReactDOM.findDOMNode(this.refs.musicIcon3));
-
+        
         this.musicIcos.forEach((item) => {
             item.run = false;
             let transitionEndName = getTransitionEndName(item);
@@ -194,7 +192,7 @@ class Search extends React.Component {
                 let icon = item.querySelector("div");
                 icon.style["webkitTransform"] = "translate3d(0, 0, 0)";
                 icon.style["transform"] = "translate3d(0, 0, 0)";
-            }, false);
+            },false);
         })
     }
 

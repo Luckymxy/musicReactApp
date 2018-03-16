@@ -125,7 +125,7 @@ class RankingInfo extends React.Component {
         }
     }
 
-    startMusicIcoAnimation = ({clientX,clientY}) => {
+     startMusicIcoAnimation = ({clientX,clientY}) => {
         if (this.musicIcos.length > 0) {
             for(var v of this.musicIcos){
               if (v.run === false) {
